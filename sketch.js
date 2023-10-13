@@ -2,15 +2,15 @@
 valoresCarros = [
   [71, 31],
 
-  [60, 156, 4],
-  [100, 240, 3],
-  [150, 320, 5],
-  [300, 400, 4],
-  [350, 488, 2],
+  [60, 156, 20],
+  [100, 240, 15],
+  [150, 320, 18],
+  [300, 400, 15],
+  [350, 488, 10],
 ];
 
 //Variáveis do sapo.
-let sapoY = 565,sapoX = 500, sapoTamanho = 40;
+let sapoY,sapoX, sapoTamanho;
 
 //Variáveis dos pontos.
 let pontos = 0, inicializador = 1, moves = true, tempos = 0;
@@ -23,22 +23,27 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //imagens e fonte
   estado = CIM;
+  sapoY = height-55,sapoX = width/2-80, sapoTamanho = 40;
+
 }
 
 function draw() {
   inicio();
-  jogo();  
-  telaFinal();
+  switch(inicializador){
+    case 1: image(telaInicio, 0, 0, width, height); break;
+    case 2: jogo(); break
+    case 3: telaFinal(); break;
+  }
+
  if (keyIsPressed && keyCode == '32' ){
    rect(sapoX,sapoY,sapoTamanho,sapoTamanho);
    rect(valoresCarros[5][0], valoresCarros[5][1], valoresCarros[0][0], valoresCarros[0][1]);
    rect(valoresCarros[4][0], valoresCarros[4][1], valoresCarros[0][0], valoresCarros[0][1]);
    rect(valoresCarros[3][0], valoresCarros[3][1], valoresCarros[0][0], valoresCarros[0][1]);
-   rect(valoresCarros[2][0], valoresCarros[2][1], valoresCarros[0][0],      valoresCarros[0][1]);
+   rect(valoresCarros[2][0], valoresCarros[2][1], valoresCarros[0][0], valoresCarros[0][1]);
    rect(valoresCarros[1][0], valoresCarros[1][1], valoresCarros[0][0], valoresCarros[0][1]);
    sapoX = mouseX;
    sapoY = mouseY;
- 
   }
 }
 
@@ -53,7 +58,6 @@ function inicio() {
 }
 
 function jogo() {
-  if (inicializador == 2) {
     //Tela do jogo.
     image(telaJogo, 0, 0, width, height);
     //Sapo ao lado do texto do objetivo.
@@ -64,9 +68,11 @@ function jogo() {
     carros();
     //colisao sapinho/carros.
     colisao();
-    
-  }
-  
+
+    if(pontos >= 3){
+      inicializador = 3;
+      console.log(pontos)
+    }
 }
 
 function jogador() {
@@ -149,25 +155,25 @@ function vevaloresCarrosidedeCarros() {
   valoresCarros[3][0] += valoresCarros[3][2];
   valoresCarros[4][0] -= valoresCarros[4][2];
   valoresCarros[5][0] += valoresCarros[5][2];
-  if (valoresCarros[1][0] + valoresCarros[0][0] <= 0) {
+  if (valoresCarros[1][0] + valoresCarros[0][0] <= 0 ) {
     valoresCarros[1][0] = width;
-    valoresCarros[1][2] = random(10, 15);
+    valoresCarros[1][2] = random(15, 25);
   }
-  if (valoresCarros[2][0] + valoresCarros[0][0] >= 1000) {
+  if (valoresCarros[2][0] >= width) {
     valoresCarros[2][0] = 0;
-    valoresCarros[2][2] = random(5, 15);
+    valoresCarros[2][2] = random(15, 20);
   }
-  if (valoresCarros[3][0] + valoresCarros[0][0] >= 1000) {
+  if (valoresCarros[3][0] >= width) {
     valoresCarros[3][0] = 0;
-    valoresCarros[3][2] = random(5, 10);
+    valoresCarros[3][2] = random(15, 20);
   }
   if (valoresCarros[4][0] + valoresCarros[0][0] <= 0) {
     valoresCarros[4][0] = width;
-    valoresCarros[4][2] = random(5, 10);
+    valoresCarros[4][2] = random(13, 23);
   }
-  if (valoresCarros[5][0] + valoresCarros[0][0] >= 1000) {
+  if (valoresCarros[5][0] >= width) {
     valoresCarros[5][0] = 0;
-    valoresCarros[5][2] = random(5, 10);
+    valoresCarros[5][2] = random(15, 18);
   }
   
 }
@@ -276,19 +282,11 @@ function textos() {
   
 }
 
-function telaFinal() {
-  
-  if(pontos >= 3){
-    inicializador = 3;
-    console.log(pontos)
-  }
-  if(inicializador == 3){
-    image(telaVitoria,0,0);
+function telaFinal() { 
+    image(telaVitoria,0,0,width,height);
     pontos = 0;
     sapoY = 565
-    sapoX = 500;
-  }
-  
+    sapoX = 500;  
 }
 
 /*
