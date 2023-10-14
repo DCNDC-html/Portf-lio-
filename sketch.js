@@ -10,7 +10,6 @@ let pontos = 0, inicializador = 1, moves = true, tempos = 0;
 var estado;
 let CIM = 1, BAI = 2, ESQ = 3, DIR = 4;
 
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //imagens e fonte
@@ -148,10 +147,10 @@ function carros() {
   image(carroAmarelo, valoresCarros[3][0], valoresCarros[3][1], valoresCarros[0][0], valoresCarros[0][1]);
   image(policia, valoresCarros[4][0], valoresCarros[4][1], valoresCarros[0][0], valoresCarros[0][1]);
   image(carroPrata, valoresCarros[5][0], valoresCarros[5][1], valoresCarros[0][0], valoresCarros[0][1]);
-  vevaloresCarrosidedeCarros();
+  movimentoCarros();
 }
 
-function vevaloresCarrosidedeCarros() {
+function movimentoCarros() {
   valoresCarros[1][0] -= valoresCarros[1][2];
   valoresCarros[2][0] += valoresCarros[2][2];
   valoresCarros[3][0] += valoresCarros[3][2];
