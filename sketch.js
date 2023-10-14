@@ -1,13 +1,5 @@
 // tamanho[0], x, y e velocidade dos carros ambu,vermelho,amarelo,policia,prata, nessa ordem.
-valoresCarros = [
-  [71, 31],
-
-  [60, 156, 20],
-  [100, 240, 15],
-  [150, 320, 18],
-  [300, 400, 15],
-  [350, 488, 10],
-];
+valoresCarros = [];
 
 //Variáveis do sapo.
 let sapoY,sapoX, sapoTamanho;
@@ -24,11 +16,20 @@ function setup() {
   //imagens e fonte
   estado = CIM;
   sapoY = height-55,sapoX = width/2-80, sapoTamanho = 40;
-
+  valoresCarros = [
+    [91, 51],
+  
+    [0.06 * width , 0.26 * height, 20],
+    [100, 0.4 * height, 15],
+    [150, 0.53 * height, 18],
+    [300, 0.66 * height, 15],
+    [350, 0.81 * height, 10],
+  ];
 }
 
 function draw() {
   inicio();
+
   switch(inicializador){
     case 1: image(telaInicio, 0, 0, width, height); break;
     case 2: jogo(); break
@@ -61,7 +62,7 @@ function jogo() {
     //Tela do jogo.
     image(telaJogo, 0, 0, width, height);
     //Sapo ao lado do texto do objetivo.
-    image(sapoObj, 935, 10, 47, 58);
+    image(sapoObj, 0.935 *width, 0.016 * height, 47, 58);
     //sapinho.
     jogador();
     //carros.
@@ -81,6 +82,7 @@ function jogador() {
   
   //Movimentação do sapo
   movimento();
+  
   if (moves == false) {
     tempos++;
     if (tempos > 20) {
@@ -94,8 +96,8 @@ function jogador() {
 
 function limiteTela() {
   //Limite de tela pro sapo.
-  if (sapoY <= 70) {
-    sapoY = 600;
+  if (sapoY <= 0.116 * height) {
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(sapoTamanho, width - sapoTamanho);
     pontos++;
     moves = false;
@@ -114,19 +116,19 @@ function limiteTela() {
 function movimento(){
   if (keyIsPressed && moves == true) {
     if (keyCode == "87") {
-      sapoY -= +4;
+      sapoY -= 10;
      estado = CIM;
     }
     if (keyCode == "83") {
-      sapoY += 4;
+      sapoY += 10;
       estado = BAI;
     }
     if (keyCode == "68") {
-      sapoX += 5;
+      sapoX += 10;
       estado = DIR;
     }
     if (keyCode == "65") {
-      sapoX -= 5;
+      sapoX -= 10;
       estado = ESQ;
     }
   }
@@ -178,9 +180,6 @@ function vevaloresCarrosidedeCarros() {
   
 }
 
-
-
-
 function colisao() {
   //Colisão do sapo com os carros. Se o sapo colidir com algum dos carros os pontos voltarão para 0; Os pontos não ficam negativos.
 
@@ -190,7 +189,7 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[1][0] &&
     sapoX <= valoresCarros[1][0] + valoresCarros[0][0]
   ) {
-    sapoY = 565;
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(0,width-sapoTamanho);
     pontos--;
     moves = false;
@@ -205,7 +204,7 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[2][0] &&
     sapoX <= valoresCarros[2][0] + valoresCarros[0][0]
   ) {
-    sapoY = 565;
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(0,width-sapoTamanho);
     pontos--;
     moves = false;
@@ -220,7 +219,7 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[3][0] &&
     sapoX <= valoresCarros[3][0] + valoresCarros[0][0]
   ) {
-    sapoY = 565;
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(0,width-sapoTamanho);
     pontos--;
     moves = false;
@@ -235,7 +234,7 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[4][0] &&
     sapoX <= valoresCarros[4][0] + valoresCarros[0][0]
   ) {
-    sapoY = 565;
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(0,width-sapoTamanho);
     pontos--;
     moves = false;
@@ -250,7 +249,7 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[5][0] &&
     sapoX <= valoresCarros[5][0] + valoresCarros[0][0]
   ) {
-    sapoY = 565;
+    sapoY = height-sapoTamanho - 15;
     sapoX = random(0,width-sapoTamanho);
     pontos--;
     moves = false;
@@ -272,25 +271,18 @@ function keyPressed() {
 
 function textos() {
   //Texto de pontos
-  textSize(24);
+  textSize(0.024*width);
   textFont(symText);
   fill(0, 255, 0);
-  text("Pontos: " + pontos, 25, 45);
-  text("Atinja 3 pontos para", 600, 40);
-  text("vencer!", 690, 60);
+  text("Pontos: " + pontos, 0.025*width, 0.08 * height);
+  text("Atinja 3 pontos para", 0.6 * width, 0.066 * height);
+  text("vencer!", 0.69 * width, 0.11 * height);
   //Texto da condição de vitória
   
 }
 
 function telaFinal() { 
     image(telaVitoria,0,0,width,height);
-    pontos = 0;
-    sapoY = 565
-    sapoX = 500;  
+    sapoY = height-55;
+    sapoX = width/2-80;  
 }
-
-/*
-   
-
-    //rect(sapoX, sapoY, sapoTamanho, sapoTamanho);
-*/
