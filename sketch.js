@@ -14,13 +14,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //imagens e fonte
   estado = CIM;
-  sapoY = height-55,sapoX = width/2-80, sapoTamanho = 40;
+  sapoY = height-55,sapoX = width/2-80, sapoTamanho = 50;
   valoresCarros = [
     [91, 51],
   
     [0.06 * width , 0.26 * height, 20],
-    [100, 0.4 * height, 15],
-    [150, 0.53 * height, 18],
+    [100, 0.39 * height, 15],
+    [200, 0.53 * height, 18],
     [300, 0.66 * height, 15],
     [350, 0.81 * height, 10],
   ];
@@ -96,8 +96,8 @@ function jogador() {
 function limiteTela() {
   //Limite de tela pro sapo.
   if (sapoY <= 0.116 * height) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(sapoTamanho, width - sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos++;
     moves = false;
   }
@@ -116,7 +116,7 @@ function movimento(){
   if (keyIsPressed && moves == true) {
     if (keyCode == "87") {
       sapoY -= 10;
-     estado = CIM;
+      estado = CIM;
     }
     if (keyCode == "83") {
       sapoY += 10;
@@ -135,9 +135,9 @@ function movimento(){
 
 function mostraSapo(estado){
   if(estado == CIM) image(SAPOW,sapoX,sapoY,sapoTamanho,sapoTamanho);
-  if(estado == BAI) image(SAPOS,sapoX,sapoY,sapoTamanho,sapoTamanho);
-  if(estado == ESQ) image(SAPOA,sapoX,sapoY,sapoTamanho,sapoTamanho);
-  if(estado == DIR) image(SAPOD,sapoX,sapoY,sapoTamanho,sapoTamanho);
+  else if(estado == BAI) image(SAPOS,sapoX,sapoY,sapoTamanho,sapoTamanho);
+  else if(estado == ESQ) image(SAPOA,sapoX,sapoY,sapoTamanho,sapoTamanho);
+  else if(estado == DIR) image(SAPOD,sapoX,sapoY,sapoTamanho,sapoTamanho);
 }
 
 function carros() {
@@ -156,9 +156,10 @@ function movimentoCarros() {
   valoresCarros[3][0] += valoresCarros[3][2];
   valoresCarros[4][0] -= valoresCarros[4][2];
   valoresCarros[5][0] += valoresCarros[5][2];
+  
   if (valoresCarros[1][0] + valoresCarros[0][0] <= 0 ) {
     valoresCarros[1][0] = width;
-    valoresCarros[1][2] = random(15, 25);
+    valoresCarros[1][2] = random(20, 25);
   }
   if (valoresCarros[2][0] >= width) {
     valoresCarros[2][0] = 0;
@@ -188,8 +189,8 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[1][0] &&
     sapoX <= valoresCarros[1][0] + valoresCarros[0][0]
   ) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(0,width-sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos--;
     moves = false;
     estado = CIM;
@@ -203,8 +204,8 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[2][0] &&
     sapoX <= valoresCarros[2][0] + valoresCarros[0][0]
   ) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(0,width-sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos--;
     moves = false;
     estado = CIM;
@@ -218,8 +219,8 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[3][0] &&
     sapoX <= valoresCarros[3][0] + valoresCarros[0][0]
   ) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(0,width-sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos--;
     moves = false;
     estado = CIM;
@@ -233,8 +234,8 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[4][0] &&
     sapoX <= valoresCarros[4][0] + valoresCarros[0][0]
   ) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(0,width-sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos--;
     moves = false;
     estado = CIM;
@@ -248,8 +249,8 @@ function colisao() {
     sapoX + sapoTamanho >= valoresCarros[5][0] &&
     sapoX <= valoresCarros[5][0] + valoresCarros[0][0]
   ) {
-    sapoY = height-sapoTamanho - 15;
-    sapoX = random(0,width-sapoTamanho);
+    sapoY = height-55;
+    sapoX = width/2-80;  
     pontos--;
     moves = false;
     estado = CIM;
